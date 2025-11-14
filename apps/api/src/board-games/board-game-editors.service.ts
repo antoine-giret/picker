@@ -12,9 +12,7 @@ export class BoardGameEditorsService {
     private boardGameEditorModel: typeof BoardGameEditor,
   ) {}
 
-  async create({
-    name,
-  }: CreateBoardGameEditorDto): Promise<BoardGameEditor> {
+  async create({ name }: CreateBoardGameEditorDto): Promise<BoardGameEditor> {
     return this.boardGameEditorModel.create({ name });
   }
 

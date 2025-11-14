@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateBoardGameDto } from './dto/create-board-game.dto';
 import { UpdateBoardGameDto } from './dto/update-board-game.dto';
 import { BoardGame } from './entities/board-game.entity';
-import { BoardGameEditor } from './entities/board-game-editor.entity';
 import { Includeable } from 'sequelize';
 
 @Injectable()

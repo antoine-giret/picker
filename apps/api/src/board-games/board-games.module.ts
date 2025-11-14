@@ -11,6 +11,6 @@ import { BoardGameEditor } from './entities/board-game-editor.entity';
 @Module({
   imports: [SequelizeModule.forFeature([BoardGame, BoardGameEditor])],
   controllers: [BoardGamesController, BoardGameEditorsController],
-  providers: [BoardGamesService, BoardGameEditorsService]
+  providers: [BoardGamesService, BoardGameEditorsService],
 })
 export class BoardGamesModule {}

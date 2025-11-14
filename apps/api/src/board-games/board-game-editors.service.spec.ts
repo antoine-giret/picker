@@ -39,7 +39,7 @@ describe('BoardGameEditorsService', () => {
   afterEach(async () => {
     await db.truncate({ restartIdentity: true });
     await db.query(`DELETE FROM "sqlite_sequence" WHERE "name" = 'BoardGames'`);
-    await db.query(`DELETE FROM "sqlite_sequence" WHERE "name" = 'BoardGameEditors'`)
+    await db.query(`DELETE FROM "sqlite_sequence" WHERE "name" = 'BoardGameEditors'`);
   });
 
   it('service should be defined', () => {
@@ -49,10 +49,7 @@ describe('BoardGameEditorsService', () => {
   describe('create()', () => {
     it('should successfully insert a board game editor', async () => {
       const boardGame = await service.create({ name: 'Editor #3' });
-      const {
-        id,
-        name,
-      } = boardGame.dataValues;
+      const { id, name } = boardGame.dataValues;
 
       expect(id).toEqual(3);
       expect(name).toEqual('Editor #3');
@@ -62,21 +59,21 @@ describe('BoardGameEditorsService', () => {
       try {
         await service.create({} as CreateBoardGameEditorDto);
 
-        throw new PreconditionFailedException('invalid board game editor inserted')
+        throw new PreconditionFailedException('invalid board game editor inserted');
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGameEditor.name cannot be null')
+        expect(err.message).toBe('notNull Violation: BoardGameEditor.name cannot be null');
       }
 
       try {
         await service.create({ name: '' });
 
-        throw new PreconditionFailedException('invalid board game editor inserted')
+        throw new PreconditionFailedException('invalid board game editor inserted');
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('Validation error: Validation len on name failed')
+        expect(err.message).toBe('Validation error: Validation len on name failed');
       }
     });
   });
@@ -95,10 +92,7 @@ describe('BoardGameEditorsService', () => {
   describe('findOne()', () => {
     it('should get a single board game editor', async () => {
       const boardGameEditor = await service.findOne(2);
-      const {
-        id,
-        name,
-      } = boardGameEditor.dataValues;
+      const { id, name } = boardGameEditor.dataValues;
 
       expect(id).toEqual(2);
       expect(name).toEqual('Editor #2');
@@ -108,9 +102,7 @@ describe('BoardGameEditorsService', () => {
   describe('update()', () => {
     it('should successfully update a board game editor', async () => {
       const boardGame = await service.update(2, { name: 'Editor two' });
-      const {
-        name,
-      } = boardGame.dataValues;
+      const { name } = boardGame.dataValues;
 
       expect(name).toEqual('Editor two');
     });
@@ -123,7 +115,7 @@ describe('BoardGameEditorsService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGameEditor.name cannot be null')
+        expect(err.message).toBe('notNull Violation: BoardGameEditor.name cannot be null');
       }
 
       try {
@@ -133,7 +125,7 @@ describe('BoardGameEditorsService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('Validation error: Validation len on name failed')
+        expect(err.message).toBe('Validation error: Validation len on name failed');
       }
     });
   });

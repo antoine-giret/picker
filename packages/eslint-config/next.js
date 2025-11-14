@@ -1,12 +1,13 @@
 import js from "@eslint/js";
-import { globalIgnores } from "eslint/config";
-import eslintConfigPrettier from "eslint-config-prettier";
-import tseslint from "typescript-eslint";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReact from "eslint-plugin-react";
-import globals from "globals";
 import pluginNext from "@next/eslint-plugin-next";
+import { globalIgnores } from "eslint/config";
+import pluginReact from "eslint-plugin-react";
+import pluginReactHooks from "eslint-plugin-react-hooks";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+
 import { config as baseConfig } from "./base.js";
+import { prettierConfig } from './prettier.js';
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
@@ -16,7 +17,7 @@ import { config as baseConfig } from "./base.js";
 export const nextJsConfig = [
   ...baseConfig,
   js.configs.recommended,
-  eslintConfigPrettier,
+  ...prettierConfig,
   ...tseslint.configs.recommended,
   globalIgnores([
     // Default ignores of eslint-config-next:

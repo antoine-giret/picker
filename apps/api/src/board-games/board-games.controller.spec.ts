@@ -30,9 +30,11 @@ describe('BoardGamesController', () => {
                 Promise.resolve({ id: 1, ...boardGame }),
               ),
             findAll: jest.fn().mockResolvedValue(mockedBoardGames),
-            findOne: jest.fn().mockImplementation((id: number) =>
-              Promise.resolve(mockedBoardGames.find((mock) => mock.id === id)),
-            ),
+            findOne: jest
+              .fn()
+              .mockImplementation((id: number) =>
+                Promise.resolve(mockedBoardGames.find((mock) => mock.id === id)),
+              ),
             update: jest
               .fn()
               .mockImplementation((id: number, boardGame: UpdateBoardGameDto) =>

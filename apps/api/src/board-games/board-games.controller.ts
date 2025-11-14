@@ -26,7 +26,10 @@ export class BoardGamesController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateBoardGameDto: UpdateBoardGameDto): Promise<BoardGame> {
+  async update(
+    @Param('id') id: string,
+    @Body() updateBoardGameDto: UpdateBoardGameDto,
+  ): Promise<BoardGame> {
     return this.boardGamesService.update(parseInt(id), updateBoardGameDto);
   }
 

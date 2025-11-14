@@ -1,18 +1,19 @@
 import js from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import tseslint from "typescript-eslint";
 import globals from "globals";
+import tseslint from "typescript-eslint";
+
 import { config as baseConfig } from "./base.js";
+import { prettierConfig } from './prettier.js';
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
  *
  * @type {import("eslint").Linter.Config[]}
  * */
-export const nextJsConfig = [
+export const nestJsConfig = [
   ...baseConfig,
   js.configs.recommended,
-  eslintConfigPrettier,
+  ...prettierConfig,
   ...tseslint.configs.recommended,
   {
     languageOptions: {

@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 
 import { BoardGameEditor } from './board-game-editor.entity';
 
-const boardGameMechanisms = [
+export const boardGameMechanisms = [
   'AUCTION',
   'FIGHT',
   'CARDS',
@@ -32,7 +32,7 @@ const boardGameMechanisms = [
   'TILES_GAME',
 ] as const;
 
-export type TBoardGameMechanism = typeof boardGameMechanisms[number];
+export type TBoardGameMechanism = (typeof boardGameMechanisms)[number];
 
 @Table
 export class BoardGame extends Model {
@@ -58,7 +58,7 @@ export class BoardGame extends Model {
     validate: {
       customValidator(value: object) {
         if (!('mechanisms' in value) || !value.mechanisms || !Array.isArray(value.mechanisms))
-          throw new Error("Tags must contain valid mechanisms");
+          throw new Error('Tags must contain valid mechanisms');
       },
     },
   })

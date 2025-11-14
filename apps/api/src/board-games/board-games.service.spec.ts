@@ -52,8 +52,8 @@ describe('BoardGamesService', () => {
 
   afterEach(async () => {
     await db.truncate({ restartIdentity: true });
-    await db.query(`DELETE FROM "sqlite_sequence" WHERE "name" = 'BoardGames'`)
-    await db.query(`DELETE FROM "sqlite_sequence" WHERE "name" = 'BoardGameEditors'`)
+    await db.query(`DELETE FROM "sqlite_sequence" WHERE "name" = 'BoardGames'`);
+    await db.query(`DELETE FROM "sqlite_sequence" WHERE "name" = 'BoardGameEditors'`);
   });
 
   it('service should be defined', () => {
@@ -133,7 +133,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGame.name cannot be null')
+        expect(err.message).toBe('notNull Violation: BoardGame.name cannot be null');
       }
 
       try {
@@ -143,7 +143,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('Validation error: Validation len on name failed')
+        expect(err.message).toBe('Validation error: Validation len on name failed');
       }
     });
 
@@ -155,7 +155,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('Validation error: Tags must contain valid mechanisms')
+        expect(err.message).toBe('Validation error: Tags must contain valid mechanisms');
       }
     });
   });
@@ -214,15 +214,12 @@ describe('BoardGamesService', () => {
 
   describe('update()', () => {
     it('should successfully update a board game', async () => {
-      const boardGame = await service.update(
-        2,
-        {
-          minNumberOfPlayers: 4,
-          maxNumberOfPlayers: 8,
-          tags: { mechanisms: ['DICES', 'FIGHT'] },
-          editorId: 1,
-        },
-      );
+      const boardGame = await service.update(2, {
+        minNumberOfPlayers: 4,
+        maxNumberOfPlayers: 8,
+        tags: { mechanisms: ['DICES', 'FIGHT'] },
+        editorId: 1,
+      });
       const {
         id,
         createdAt,
@@ -257,7 +254,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGame.name cannot be null')
+        expect(err.message).toBe('notNull Violation: BoardGame.name cannot be null');
       }
 
       try {
@@ -267,7 +264,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('Validation error: Validation len on name failed')
+        expect(err.message).toBe('Validation error: Validation len on name failed');
       }
     });
 
@@ -279,7 +276,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('Validation error: Tags must contain valid mechanisms')
+        expect(err.message).toBe('Validation error: Tags must contain valid mechanisms');
       }
     });
   });

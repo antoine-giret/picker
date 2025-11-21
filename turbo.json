@@ -21,5 +21,12 @@
       "persistent": true
     }
   },
-  "globalEnv": ["PORT", "DATABASE_HOST", "DATABASE_USERNAME", "DATABASE_PASSWORD"]
+  "globalEnv": [
+    "PORT",
+    "DATABASE_HOST",
+    "DATABASE_USERNAME",
+    "DATABASE_PASSWORD",
+    "FRONTEND_URL",
+    "NEXT_PUBLIC_API_URL"
+  ]
 }

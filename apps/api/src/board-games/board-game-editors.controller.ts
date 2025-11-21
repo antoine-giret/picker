@@ -3,24 +3,24 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { BoardGameEditorsService } from './board-game-editors.service';
 import { CreateBoardGameDto } from './dto/create-board-game.dto';
 import { UpdateBoardGameDto } from './dto/update-board-game.dto';
-import { BoardGameEditor } from './entities/board-game-editor.entity';
+import { BoardGameEditorEntity } from './entities/board-game-editor.entity';
 
 @Controller('board-game-editors')
 export class BoardGameEditorsController {
   constructor(private boardGameEditorsService: BoardGameEditorsService) {}
 
   @Post()
-  async create(@Body() createBoardGameDto: CreateBoardGameDto): Promise<BoardGameEditor> {
+  async create(@Body() createBoardGameDto: CreateBoardGameDto): Promise<BoardGameEditorEntity> {
     return this.boardGameEditorsService.create(createBoardGameDto);
   }
 
   @Get()
-  async findAll(): Promise<BoardGameEditor[]> {
+  async findAll(): Promise<BoardGameEditorEntity[]> {
     return this.boardGameEditorsService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<BoardGameEditor> {
+  async findOne(@Param('id') id: string): Promise<BoardGameEditorEntity> {
     return this.boardGameEditorsService.findOne(parseInt(id));
   }
 
@@ -28,7 +28,7 @@ export class BoardGameEditorsController {
   async update(
     @Param('id') id: string,
     @Body() updateBoardGameDto: UpdateBoardGameDto,
-  ): Promise<BoardGameEditor> {
+  ): Promise<BoardGameEditorEntity> {
     return this.boardGameEditorsService.update(parseInt(id), updateBoardGameDto);
   }
 

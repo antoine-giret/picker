@@ -4,7 +4,7 @@ import { BoardGamesController } from './board-games.controller';
 import { BoardGamesService } from './board-games.service';
 import { CreateBoardGameDto } from './dto/create-board-game.dto';
 import { UpdateBoardGameDto } from './dto/update-board-game.dto';
-import { BoardGameEditor } from './entities/board-game-editor.entity';
+import { BoardGameEditorEntity } from './entities/board-game-editor.entity';
 
 export type TBoardGameMock = { id: number; name: string };
 
@@ -85,7 +85,7 @@ describe('BoardGamesController', () => {
     it('should find a board game', () => {
       const promise = controller.findOne('1');
       expect(service.findOne).toHaveBeenCalled();
-      expect(service.findOne).toHaveBeenCalledWith(1, [BoardGameEditor]);
+      expect(service.findOne).toHaveBeenCalledWith(1, [BoardGameEditorEntity]);
       expect(promise).resolves.toEqual({
         id: 1,
         name: 'Game #1',

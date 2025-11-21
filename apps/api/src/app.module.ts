@@ -4,8 +4,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BoardGame } from './board-games/entities/board-game.entity';
-import { BoardGameEditor } from './board-games/entities/board-game-editor.entity';
+import { BoardGameEntity } from './board-games/entities/board-game.entity';
+import { BoardGameEditorEntity } from './board-games/entities/board-game-editor.entity';
 import { BoardGamesModule } from './board-games/board-games.module';
 
 @Module({
@@ -22,7 +22,7 @@ import { BoardGamesModule } from './board-games/board-games.module';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: 'picker',
-      models: [BoardGame, BoardGameEditor],
+      models: [BoardGameEntity, BoardGameEditorEntity],
     }),
     BoardGamesModule,
   ],

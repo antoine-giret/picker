@@ -6,8 +6,8 @@ import { BoardGameEditorsService } from './board-game-editors.service';
 import { BoardGamesService } from './board-games.service';
 import { CreateBoardGameEditorDto } from './dto/create-board-game-editor.dto';
 import { UpdateBoardGameEditorDto } from './dto/update-board-game-editor.dto';
-import { BoardGame } from './entities/board-game.entity';
-import { BoardGameEditor } from './entities/board-game-editor.entity';
+import { BoardGameEntity } from './entities/board-game.entity';
+import { BoardGameEditorEntity } from './entities/board-game-editor.entity';
 
 describe('BoardGameEditorsService', () => {
   let db: Sequelize;
@@ -15,18 +15,18 @@ describe('BoardGameEditorsService', () => {
   let boardGameService: BoardGamesService;
 
   beforeAll(async () => {
-    db = await createMemDB([BoardGame, BoardGameEditor]);
-    service = new BoardGameEditorsService(BoardGameEditor);
-    boardGameService = new BoardGamesService(BoardGame);
+    db = await createMemDB([BoardGameEntity, BoardGameEditorEntity]);
+    service = new BoardGameEditorsService(BoardGameEditorEntity);
+    boardGameService = new BoardGamesService(BoardGameEntity);
   });
 
   afterAll(() => db.close());
 
   beforeEach(async () => {
-    await BoardGameEditor.create({ name: 'Editor #1' });
-    await BoardGameEditor.create({ name: 'Editor #2' });
+    await BoardGameEditorEntity.create({ name: 'Editor #1' });
+    await BoardGameEditorEntity.create({ name: 'Editor #2' });
 
-    await BoardGame.create({
+    await BoardGameEntity.create({
       name: 'Game #1',
       minNumberOfPlayers: 2,
       maxNumberOfPlayers: 6,
@@ -63,7 +63,7 @@ describe('BoardGameEditorsService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGameEditor.name cannot be null');
+        expect(err.message).toBe('notNull Violation: BoardGameEditorEntity.name cannot be null');
       }
 
       try {
@@ -115,7 +115,7 @@ describe('BoardGameEditorsService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGameEditor.name cannot be null');
+        expect(err.message).toBe('notNull Violation: BoardGameEditorEntity.name cannot be null');
       }
 
       try {

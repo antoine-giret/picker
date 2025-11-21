@@ -5,11 +5,11 @@ import { BoardGamesController } from './board-games.controller';
 import { BoardGamesService } from './board-games.service';
 import { BoardGameEditorsController } from './board-game-editors.controller';
 import { BoardGameEditorsService } from './board-game-editors.service';
-import { BoardGame } from './entities/board-game.entity';
-import { BoardGameEditor } from './entities/board-game-editor.entity';
+import { BoardGameEntity } from './entities/board-game.entity';
+import { BoardGameEditorEntity } from './entities/board-game-editor.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([BoardGame, BoardGameEditor])],
+  imports: [SequelizeModule.forFeature([BoardGameEntity, BoardGameEditorEntity])],
   controllers: [BoardGamesController, BoardGameEditorsController],
   providers: [BoardGamesService, BoardGameEditorsService],
 })

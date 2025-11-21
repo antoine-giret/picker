@@ -1,12 +1,23 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 
-import { BoardGame } from './board-game.entity';
+import { BoardGameEntity } from './board-game.entity';
 
-@Table
-export class BoardGameEditor extends Model {
+export type TBoardGameEditor = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+};
+
+export type TBoardGameEditorCreation = Partial<{
+  name: string;
+}>;
+
+@Table({ tableName: 'BoardGameEditors' })
+export class BoardGameEditorEntity extends Model<TBoardGameEditor, TBoardGameEditorCreation> {
   @Column({ type: DataType.STRING, allowNull: false, validate: { len: [1, 50] } })
   declare name: string;
 
-  @HasMany(() => BoardGame, 'editorId')
-  declare boardGames: BoardGame[];
+  @HasMany(() => BoardGameEntity, 'editorId')
+  declare boardGames: BoardGameEntity[];
 }

@@ -5,25 +5,25 @@ import { createMemDB } from '../utils/testing-helpers/create-mem-db';
 import { BoardGamesService } from './board-games.service';
 import { CreateBoardGameDto } from './dto/create-board-game.dto';
 import { UpdateBoardGameDto } from './dto/update-board-game.dto';
-import { BoardGame } from './entities/board-game.entity';
-import { BoardGameEditor } from './entities/board-game-editor.entity';
+import { BoardGameEntity, TBoardGameTags } from './entities/board-game.entity';
+import { BoardGameEditorEntity } from './entities/board-game-editor.entity';
 
 describe('BoardGamesService', () => {
   let db: Sequelize;
   let service: BoardGamesService;
 
   beforeAll(async () => {
-    db = await createMemDB([BoardGame, BoardGameEditor]);
-    service = new BoardGamesService(BoardGame);
+    db = await createMemDB([BoardGameEntity, BoardGameEditorEntity]);
+    service = new BoardGamesService(BoardGameEntity);
   });
 
   afterAll(() => db.close());
 
   beforeEach(async () => {
-    await BoardGameEditor.create({ name: 'Editor #1' });
-    await BoardGameEditor.create({ name: 'Editor #2' });
+    await BoardGameEditorEntity.create({ name: 'Editor #1' });
+    await BoardGameEditorEntity.create({ name: 'Editor #2' });
 
-    await BoardGame.create(
+    await BoardGameEntity.create(
       {
         name: 'Game #1',
         minNumberOfPlayers: 2,
@@ -33,10 +33,10 @@ describe('BoardGamesService', () => {
         tags: { mechanisms: ['CARDS', 'RESOURCE_MANAGEMENT'] },
         editorId: 1,
       },
-      { include: [BoardGameEditor] },
+      { include: [BoardGameEditorEntity] },
     );
 
-    await BoardGame.create(
+    await BoardGameEntity.create(
       {
         name: 'Game #2',
         minNumberOfPlayers: 2,
@@ -46,7 +46,7 @@ describe('BoardGamesService', () => {
         tags: { mechanisms: ['DICES'] },
         editorId: 2,
       },
-      { include: [BoardGameEditor] },
+      { include: [BoardGameEditorEntity] },
     );
   });
 
@@ -110,7 +110,7 @@ describe('BoardGamesService', () => {
         minAge,
         tags,
         editorId,
-      } = boardGame;
+      } = boardGame.dataValues;
 
       expect(Object.keys(boardGame.dataValues)).toHaveLength(10);
       expect(id).toEqual(3);
@@ -133,7 +133,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGame.name cannot be null');
+        expect(err.message).toBe('notNull Violation: BoardGameEntity.name cannot be null');
       }
 
       try {
@@ -149,7 +149,7 @@ describe('BoardGamesService', () => {
 
     it('should throw an error when trying to insert a board game with invalid tags', async () => {
       try {
-        await service.create({ name: 'Game #3', tags: {} });
+        await service.create({ name: 'Game #3', tags: {} as TBoardGameTags });
 
         throw new PreconditionFailedException('invalid tags');
       } catch (err) {
@@ -166,23 +166,27 @@ describe('BoardGamesService', () => {
       const [boardGame] = boardGames;
 
       expect(boardGames).toHaveLength(2);
-      expect(Object.keys(boardGame?.dataValues)).toHaveLength(10);
-      expect(boardGame?.dataValues).toHaveProperty('id');
-      expect(boardGame?.dataValues).toHaveProperty('createdAt');
-      expect(boardGame?.dataValues).toHaveProperty('updatedAt');
-      expect(boardGame?.dataValues).toHaveProperty('name');
-      expect(boardGame?.dataValues).toHaveProperty('minNumberOfPlayers');
-      expect(boardGame?.dataValues).toHaveProperty('maxNumberOfPlayers');
-      expect(boardGame?.dataValues).toHaveProperty('durationInMinutes');
-      expect(boardGame?.dataValues).toHaveProperty('minAge');
-      expect(boardGame?.dataValues).toHaveProperty('tags');
-      expect(boardGame?.dataValues).toHaveProperty('editorId');
+      expect(boardGame).toBeDefined();
+
+      if (boardGame) {
+        expect(Object.keys(boardGame.dataValues)).toHaveLength(10);
+        expect(boardGame.dataValues).toHaveProperty('id');
+        expect(boardGame.dataValues).toHaveProperty('createdAt');
+        expect(boardGame.dataValues).toHaveProperty('updatedAt');
+        expect(boardGame.dataValues).toHaveProperty('name');
+        expect(boardGame.dataValues).toHaveProperty('minNumberOfPlayers');
+        expect(boardGame.dataValues).toHaveProperty('maxNumberOfPlayers');
+        expect(boardGame.dataValues).toHaveProperty('durationInMinutes');
+        expect(boardGame.dataValues).toHaveProperty('minAge');
+        expect(boardGame.dataValues).toHaveProperty('tags');
+        expect(boardGame.dataValues).toHaveProperty('editorId');
+      }
     });
   });
 
   describe('findOne()', () => {
     it('should get a single board game', async () => {
-      const boardGame = await service.findOne(2, [BoardGameEditor]);
+      const boardGame = await service.findOne(2, [BoardGameEditorEntity]);
       const {
         id,
         createdAt,
@@ -208,7 +212,7 @@ describe('BoardGamesService', () => {
       expect(minAge).toEqual(3);
       expect(tags).toEqual({ mechanisms: ['DICES'] });
       expect(editorId).toEqual(2);
-      expect(editor).toBeInstanceOf(BoardGameEditor);
+      expect(editor).toBeInstanceOf(BoardGameEditorEntity);
     });
   });
 
@@ -254,7 +258,7 @@ describe('BoardGamesService', () => {
       } catch (err) {
         if (!(err instanceof ValidationError)) throw err;
 
-        expect(err.message).toBe('notNull Violation: BoardGame.name cannot be null');
+        expect(err.message).toBe('notNull Violation: BoardGameEntity.name cannot be null');
       }
 
       try {
@@ -270,7 +274,7 @@ describe('BoardGamesService', () => {
 
     it('should throw an error when trying to set invalid tags to a board game', async () => {
       try {
-        await service.update(2, { tags: {} });
+        await service.update(2, { tags: {} as TBoardGameTags });
 
         throw new PreconditionFailedException('invalid tags');
       } catch (err) {

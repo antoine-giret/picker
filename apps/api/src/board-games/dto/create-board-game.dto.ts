@@ -7,5 +7,5 @@ export class CreateBoardGameDto {
   minAge?: number | null;
   minNumberOfPlayers?: number | null;
   name: string;
-  tags?: { mechanisms?: TBoardGameMechanism[] };
+  tags?: { mechanisms: TBoardGameMechanism[] };
 }

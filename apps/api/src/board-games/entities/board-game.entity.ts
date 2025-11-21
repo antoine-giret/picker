@@ -1,6 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 
-import { BoardGameEditor } from './board-game-editor.entity';
+import { BoardGameEditorEntity, TBoardGameEditor } from './board-game-editor.entity';
 
 export const boardGameMechanisms = [
   'AUCTION',
@@ -34,8 +34,34 @@ export const boardGameMechanisms = [
 
 export type TBoardGameMechanism = (typeof boardGameMechanisms)[number];
 
-@Table
-export class BoardGame extends Model {
+export type TBoardGameTags = { mechanisms: TBoardGameMechanism[] };
+
+export type TBoardGame = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  durationInMinutes: number | null;
+  editor: TBoardGameEditor | null;
+  editorId: number | null;
+  name: string;
+  minAge: number | null;
+  minNumberOfPlayers: number;
+  maxNumberOfPlayers: number | null;
+  tags: TBoardGameTags;
+};
+
+export type TBoardGameCreation = Partial<{
+  durationInMinutes: number | null;
+  editorId: number | null;
+  name: string;
+  minAge: number | null;
+  minNumberOfPlayers: number | null;
+  maxNumberOfPlayers: number | null;
+  tags: TBoardGameTags | null;
+}>;
+
+@Table({ tableName: 'BoardGames' })
+export class BoardGameEntity extends Model<TBoardGame, TBoardGameCreation> {
   @Column({ type: DataType.STRING, allowNull: false, validate: { len: [1, 50] } })
   declare name: string;
 
@@ -64,10 +90,10 @@ export class BoardGame extends Model {
   })
   declare tags: { mechanisms: TBoardGameMechanism[] };
 
-  @ForeignKey(() => BoardGameEditor)
+  @ForeignKey(() => BoardGameEditorEntity)
   @Column({ allowNull: true, defaultValue: null })
   declare editorId: number;
 
-  @BelongsTo(() => BoardGameEditor, { foreignKey: 'editorId', onDelete: 'SET NULL' })
-  declare editor: BoardGameEditor;
+  @BelongsTo(() => BoardGameEditorEntity, { foreignKey: 'editorId', onDelete: 'SET NULL' })
+  declare editor: BoardGameEditorEntity;
 }

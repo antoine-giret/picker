@@ -3,14 +3,14 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { CreateBoardGameDto } from './dto/create-board-game.dto';
 import { UpdateBoardGameDto } from './dto/update-board-game.dto';
-import { BoardGame } from './entities/board-game.entity';
+import { BoardGameEntity } from './entities/board-game.entity';
 import { Includeable } from 'sequelize';
 
 @Injectable()
 export class BoardGamesService {
   constructor(
-    @InjectModel(BoardGame)
-    private boardGameModel: typeof BoardGame,
+    @InjectModel(BoardGameEntity)
+    private boardGameModel: typeof BoardGameEntity,
   ) {}
 
   async create({
@@ -21,7 +21,7 @@ export class BoardGamesService {
     minAge,
     tags,
     editorId,
-  }: CreateBoardGameDto): Promise<BoardGame> {
+  }: CreateBoardGameDto): Promise<BoardGameEntity> {
     return this.boardGameModel.create({
       name,
       minNumberOfPlayers,
@@ -33,18 +33,18 @@ export class BoardGamesService {
     });
   }
 
-  async findAll(): Promise<BoardGame[]> {
+  async findAll(): Promise<BoardGameEntity[]> {
     return this.boardGameModel.findAll();
   }
 
-  async findOne(id: number, include?: Includeable | Includeable[]): Promise<BoardGame> {
+  async findOne(id: number, include?: Includeable | Includeable[]): Promise<BoardGameEntity> {
     const boardGame = await this.boardGameModel.findOne({ where: { id }, include });
     if (!boardGame) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
 
     return boardGame;
   }
 
-  async update(id: number, updateBoardGameDto: UpdateBoardGameDto): Promise<BoardGame> {
+  async update(id: number, updateBoardGameDto: UpdateBoardGameDto): Promise<BoardGameEntity> {
     const boardGame = await this.findOne(id);
     return boardGame.update(updateBoardGameDto);
   }

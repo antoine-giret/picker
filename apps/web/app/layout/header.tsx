@@ -2,6 +2,8 @@ import { Menu, MenuButton, MenuItem as HeadlessUIMenuItem, MenuItems } from '@he
 import { ArchiveBoxArrowDownIcon, Bars3Icon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
+import Button from '../components/button';
+
 export default function Header() {
   return (
     <header className="shrink-0 border-b border-black/10 dark:border-white/10">
@@ -30,7 +32,7 @@ export default function Header() {
           </Menu>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <NavLink href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
+          <Button href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
         </div>
       </nav>
     </header>
@@ -56,25 +58,5 @@ function MenuItem({
         {label}
       </Link>
     </HeadlessUIMenuItem>
-  );
-}
-
-function NavLink({
-  href,
-  Icon,
-  label,
-}: {
-  href: string;
-  Icon: typeof PuzzlePieceIcon;
-  label: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="flex items-center gap-2 rounded-md px-4 py-2 text-sm/7 font-semibold text-gray-700 dark:text-gray-100 hover:bg-black/5 dark:hover:bg-white/5"
-    >
-      <Icon className="size-4" />
-      {label}
-    </Link>
   );
 }

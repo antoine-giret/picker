@@ -11,10 +11,48 @@ const hoverColors = {
   fuchsia: 'hover:bg-fuchsia-600 dark:hover:bg-fuchsia-800',
 };
 
+function Card({
+  soon,
+  color,
+  hoverColor,
+  href,
+  Icon,
+  label,
+}: {
+  color: string;
+  hoverColor: string;
+  href: string;
+  Icon: typeof PuzzlePieceIcon;
+  label: string;
+  soon?: boolean;
+}) {
+  const className = 'flex flex-col items-center gap-3 w-xl max-w-full rounded-md p-6 text-white';
+  const labelClassName = 'font-(family-name:--chewy) text-2xl';
+
+  if (soon) {
+    return (
+      <div className={`${className} ${color}`}>
+        <Icon className="size-12" />
+        <div className="flex items-center gap-2">
+          <span className={labelClassName}>{label}</span>
+          <span className="text-sm">(bientôt)</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Link className={`${className} ${color} ${hoverColor}`} href={href}>
+      <Icon className="size-12" />
+      <span className={labelClassName}>{label}</span>
+    </Link>
+  );
+}
+
 export default function Home() {
   return (
-    <div className="flex flex-col grow-1 items-center justify-center gap-6 lg:gap-8 py-6 lg:py-8">
-      <h1 className="text-md">Que souhaites-tu sortir du placard ?</h1>
+    <div className="flex flex-col grow-1 items-center justify-center gap-6 py-6">
+      <h1 className="text-md font-bold text-center">Que souhaites-tu sortir du placard ?</h1>
       <Card
         color={colors.purple}
         hoverColor={hoverColors.purple}
@@ -31,45 +69,5 @@ export default function Home() {
         label="Vinyles"
       />
     </div>
-  );
-}
-
-function Card({
-  soon,
-  color,
-  hoverColor,
-  href,
-  Icon,
-  label,
-}: {
-  color: string;
-  hoverColor: string;
-  href: string;
-  Icon: typeof PuzzlePieceIcon;
-  label: string;
-  soon?: boolean;
-}) {
-  if (soon) {
-    return (
-      <div
-        className={`flex flex-col items-center gap-3 w-xl max-w-full rounded-md p-6 ${color} text-white`}
-      >
-        <Icon className="size-12" />
-        <div className="flex items-center gap-2">
-          <span className="font-(family-name:--chewy) text-2xl">{label}</span>
-          <span className="text-sm">(bientôt)</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <Link
-      className={`flex flex-col items-center gap-3 w-xl max-w-full rounded-md p-6 ${color} ${hoverColor} text-white`}
-      href={href}
-    >
-      <Icon className="size-12" />
-      <span className="font-(family-name:--chewy) text-2xl">{label}</span>
-    </Link>
   );
 }

@@ -1,13 +1,13 @@
 import { Menu, MenuButton, MenuItem as HeadlessUIMenuItem, MenuItems } from '@headlessui/react';
-import { ArchiveBoxArrowDownIcon, Bars3Icon } from '@heroicons/react/24/outline';
+import { ArchiveBoxArrowDownIcon, Bars3Icon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="border-b border-black/10 dark:border-white/10">
+    <header className="shrink-0 border-b border-black/10 dark:border-white/10">
       <nav className="flex items-center justify-between h-16 max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <Link className="flex items-center gap-3 -m-1.5 p-1.5" href="/">
+          <Link className="flex items-center gap-4 lg:gap-3 -m-1.5 p-1.5" href="/">
             <ArchiveBoxArrowDownIcon className="size-6 text-purple-500" />
             <span className="font-(family-name:--chewy) text-xl">Quoi sortir ?</span>
           </Link>
@@ -25,37 +25,55 @@ export default function Header() {
               anchor="bottom end"
               className="w-xs max-w-9/10 flex-auto overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10 p-2"
             >
-              <MenuItem href="/board-games" label="Jeux de société" />
+              <MenuItem href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
             </MenuItems>
           </Menu>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <NavLink href="/board-games" label="Jeux de société" />
+          <NavLink href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
         </div>
       </nav>
     </header>
   );
 }
 
-function MenuItem({ href, label }: { href: string; label: string }) {
+function MenuItem({
+  href,
+  Icon,
+  label,
+}: {
+  href: string;
+  Icon: typeof PuzzlePieceIcon;
+  label: string;
+}) {
   return (
     <HeadlessUIMenuItem>
       <Link
         href={href}
-        className="flex gap-x-6 rounded-md px-4 py-2 text-sm/7 font-semibold text-gray-700 dark:text-white hover:bg-black/5 dark:hover:bg-white/5"
+        className="flex items-center gap-2 rounded-md px-4 py-2 text-sm/7 font-semibold text-gray-700 dark:text-white hover:bg-black/5 dark:hover:bg-white/5"
       >
+        <Icon className="size-4" />
         {label}
       </Link>
     </HeadlessUIMenuItem>
   );
 }
 
-function NavLink({ href, label }: { href: string; label: string }) {
+function NavLink({
+  href,
+  Icon,
+  label,
+}: {
+  href: string;
+  Icon: typeof PuzzlePieceIcon;
+  label: string;
+}) {
   return (
     <Link
       href={href}
-      className="block rounded-md px-4 py-2 text-sm/7 font-semibold text-gray-700 dark:text-gray-100 hover:bg-black/5 dark:hover:bg-white/5"
+      className="flex items-center gap-2 rounded-md px-4 py-2 text-sm/7 font-semibold text-gray-700 dark:text-gray-100 hover:bg-black/5 dark:hover:bg-white/5"
     >
+      <Icon className="size-4" />
       {label}
     </Link>
   );

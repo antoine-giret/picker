@@ -16,9 +16,11 @@ export default function Layout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${chewy.variable}`}>
+      <body className={`${chewy.variable} flex flex-col min-h-dvh`}>
         <Header />
-        <main>{children}</main>
+        <main className="flex flex-col grow-1 w-7xl max-w-full mx-auto px-6 lg:px-8">
+          {children}
+        </main>
       </body>
     </html>
   );

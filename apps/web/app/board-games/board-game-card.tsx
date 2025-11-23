@@ -6,12 +6,11 @@ import {
   UserIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
+import { RoudedSkeleton } from '@repo/ui/rounded-skeleton';
+import { TextSkeleton } from '@repo/ui/text-skeleton';
 import { TBoardGame } from 'api/board-games/entities/board-game.entity';
 import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity';
 import Link from 'next/link';
-
-import TextSkeleton from '../components/text-skeleton';
-import RoudedSkeleton from '../components/rounded-skeleton';
 
 function Stat({ Icon, value }: { Icon: typeof ClockIcon; value?: string }) {
   return (

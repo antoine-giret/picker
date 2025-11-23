@@ -10,7 +10,7 @@ type TWidth = '80%' | '90%';
 
 const widths: { [key in TWidth]: string } = { '80%': 'w-8/10', '90%': 'w-9/10' };
 
-function TextSkeleton({ size, width }: { size: TSize; width: TWidth }) {
+export function TextSkeleton({ size, width }: { size: TSize; width: TWidth }) {
   const [boxHeight, spanHeight] = heights[size];
 
   return (
@@ -19,5 +19,3 @@ function TextSkeleton({ size, width }: { size: TSize; width: TWidth }) {
     </div>
   );
 }
-
-export default TextSkeleton;

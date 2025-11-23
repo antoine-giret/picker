@@ -1,6 +1,6 @@
 import { FaceFrownIcon, PlusIcon } from '@heroicons/react/24/outline';
-
-import Button from '../components/button';
+import { Button } from '@repo/ui/button';
+import Link from 'next/link';
 
 export default function EmptyState() {
   return (
@@ -8,6 +8,7 @@ export default function EmptyState() {
       <FaceFrownIcon className="size-12" />
       <span className="text-md font-bold text-center">Ton placard est pour le moment vide...</span>
       <Button
+        Link={Link}
         href="/board-games/new"
         Icon={PlusIcon}
         label="Ajouter mon premier jeu"

@@ -1,16 +1,16 @@
 'use client';
 
+import { PlusIcon } from '@heroicons/react/24/outline';
 import { BoardGamesService } from '@repo/api/services/board-games';
 import { BoardGameEditorsService } from '@repo/api/services/board-game-editors';
+import { Button } from '@repo/ui/button';
 import { TBoardGame } from 'api/board-games/entities/board-game.entity';
 import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
-import Button from '../components/button';
 
 import BoardGameCard from './board-game-card';
 import EmptyState from './empty-state';
-import { PlusIcon } from '@heroicons/react/24/outline';
 
 export default function BoardGames() {
   const [boardGameEditors, setBoardGameEditors] = useState<TBoardGameEditor[]>();
@@ -66,6 +66,7 @@ export default function BoardGames() {
       {boardGames && (
         <div className="fixed bottom-6 right-6">
           <Button
+            Link={Link}
             href="/board-games/new"
             Icon={PlusIcon}
             label="Ajouter un jeu"

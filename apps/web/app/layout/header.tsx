@@ -1,8 +1,7 @@
 import { Menu, MenuButton, MenuItem as HeadlessUIMenuItem, MenuItems } from '@headlessui/react';
 import { ArchiveBoxArrowDownIcon, Bars3Icon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
+import { Button } from '@repo/ui/button';
 import Link from 'next/link';
-
-import Button from '../components/button';
 
 export default function Header() {
   return (
@@ -32,7 +31,7 @@ export default function Header() {
           </Menu>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <Button href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
+          <Button Link={Link} href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
         </div>
       </nav>
     </header>

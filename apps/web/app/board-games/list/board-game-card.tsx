@@ -72,7 +72,7 @@ function Content({
   boardGameEditors?: TBoardGameEditor[];
 }) {
   const editor =
-    boardGame && boardGameEditors
+    boardGameEditors && boardGame
       ? (boardGame.editorId && boardGameEditors.find(({ id }) => id === boardGame.editorId)) || null
       : undefined;
 
@@ -118,7 +118,7 @@ function Content({
   );
 }
 
-function BoardGameCard({
+export default function BoardGameCard({
   boardGameEditors,
   boardGame,
 }: {
@@ -127,7 +127,7 @@ function BoardGameCard({
 }) {
   const className = `block rounded-md p-3 bg-black/5 dark:bg-white/5 ${boardGame ? 'hover:bg-black/10 dark:hover:bg-white/10' : 'animate-pulse'}`;
 
-  if (!boardGame || !boardGameEditors) {
+  if (!boardGameEditors || !boardGame) {
     return (
       <div className={className}>
         <Content />
@@ -141,5 +141,3 @@ function BoardGameCard({
     </Link>
   );
 }
-
-export default BoardGameCard;

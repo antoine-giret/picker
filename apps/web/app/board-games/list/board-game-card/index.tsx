@@ -12,18 +12,7 @@ import { TBoardGame } from 'api/board-games/entities/board-game.entity';
 import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity';
 import Link from 'next/link';
 
-function Stat({ Icon, value }: { Icon: typeof ClockIcon; value?: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Icon className="size-4" />
-      {value ? (
-        <span className="text-sm text-black/90 dark:text-white/90">{value}</span>
-      ) : (
-        <TextSkeleton size="sm" width="90%" />
-      )}
-    </div>
-  );
-}
+import Stat from './stat';
 
 function PlayersStat({
   boardGame: { minNumberOfPlayers, maxNumberOfPlayers },

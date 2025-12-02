@@ -11,7 +11,7 @@ import { BoardGameEditorsContext } from '../../context';
 import EmptyState from './empty-state';
 import List from './list';
 
-export default function Content({
+export default function Wrapper({
   boardGamesPromise,
 }: {
   boardGamesPromise: Promise<TBoardGame[]>;
@@ -20,7 +20,7 @@ export default function Content({
   const boardGames = use(boardGamesPromise);
 
   if (!boardGameEditorsContext || boardGames.length === 0) {
-    return <EmptyState />;
+    return <EmptyState noGameYet text="Ton placard est pour le moment vide..." />;
   }
 
   const { list: boardGameEditors } = boardGameEditorsContext;

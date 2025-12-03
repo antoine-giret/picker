@@ -1,34 +1,13 @@
 'use client';
 
-import { BoardGamesService } from '@repo/api/services/board-games';
 import { TBoardGame } from 'api/board-games/entities/board-game.entity.js';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useFetcher } from '../../hooks/fetcher';
 
-export default function BoardGames() {
+export default function BoardGame() {
   const { id } = useParams();
-  const [boardGame, setBoardGame] = useState<TBoardGame>();
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function findGame(id: number) {
-      try {
-        const data = await BoardGamesService.findOne(id);
-        if (!cancelled) setBoardGame(data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    if (typeof id === 'string') findGame(parseInt(id));
-
-    return () => {
-      setBoardGame(undefined);
-      cancelled = true;
-    };
-  }, [id]);
+  const { data: boardGame } = useFetcher<TBoardGame>(`/board-games/${id}`);
 
   return (
     <div>

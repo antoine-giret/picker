@@ -1,42 +1,49 @@
 'use client';
 
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { Button } from '@repo/ui/button';
 import { TBoardGame } from 'api/board-games/entities/board-game.entity.js';
-import Link from 'next/link';
-import { use, useContext } from 'react';
+import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity.js';
 
-import { BoardGameEditorsContext } from '../../context';
+import Wrapper from './wrapper';
+import Filters from './filters';
+import { useState } from 'react';
 
-import EmptyState from './empty-state';
-import List from './list';
-
-export default function Wrapper({
-  boardGamesPromise,
+export default function List({
+  boardGameEditors,
+  boardGames,
 }: {
-  boardGamesPromise: Promise<TBoardGame[]>;
+  boardGames: TBoardGame[];
+  boardGameEditors: TBoardGameEditor[];
 }) {
-  const boardGameEditorsContext = useContext(BoardGameEditorsContext);
-  const boardGames = use(boardGamesPromise);
+  const [search, setSearch] = useState('');
+  const [filteredBoardGames, setFilteredBoardGames] = useState(filterBoardGames);
 
-  if (!boardGameEditorsContext || boardGames.length === 0) {
-    return <EmptyState noGameYet text="Ton placard est pour le moment vide..." />;
+  function filterBoardGames() {
+    return boardGames.filter(
+      ({ name }) =>
+        !search ||
+        name
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(
+            search
+              .trim()
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, ''),
+          ),
+    );
   }
 
-  const { list: boardGameEditors } = boardGameEditorsContext;
+  function handleFilter() {
+    setFilteredBoardGames(filterBoardGames());
+  }
 
   return (
-    <>
-      <List boardGameEditors={boardGameEditors} boardGames={boardGames} />
-      <div className="fixed bottom-6 right-6">
-        <Button
-          Link={Link}
-          href="/board-games/new"
-          Icon={PlusIcon}
-          label="Ajouter un jeu"
-          variant="contained"
-        />
-      </div>
-    </>
+    <Wrapper
+      boardGameEditors={boardGameEditors}
+      filteredBoardGames={filteredBoardGames}
+      filters={<Filters handleSubmit={handleFilter} search={search} setSearch={setSearch} />}
+    />
   );
 }

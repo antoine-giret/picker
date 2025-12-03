@@ -1,4 +1,4 @@
-import { TBoardGame } from 'api/board-games/entities/board-game.entity';
+import { TBoardGame } from 'api/board-games/entities/board-game.entity.js';
 
 export class BoardGamesService {
   static async findAll(): Promise<TBoardGame[]> {

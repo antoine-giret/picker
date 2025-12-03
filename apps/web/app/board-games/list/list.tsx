@@ -1,7 +1,7 @@
 'use client';
 
-import { TBoardGame } from 'api/board-games/entities/board-game.entity';
-import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity';
+import { TBoardGame } from 'api/board-games/entities/board-game.entity.js';
+import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity.js';
 
 import Wrapper from './wrapper';
 import Filters from './filters';

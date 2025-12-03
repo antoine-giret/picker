@@ -2,7 +2,7 @@
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Button } from '@repo/ui/button';
-import { TBoardGame } from 'api/board-games/entities/board-game.entity';
+import { TBoardGame } from 'api/board-games/entities/board-game.entity.js';
 import Link from 'next/link';
 import { use, useContext } from 'react';
 

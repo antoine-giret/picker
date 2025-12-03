@@ -70,6 +70,6 @@
     "testEnvironment": "node"
   },
   "exports": {
-    "./*": "./src/*.ts"
+    "./*": "./dist/*"
   }
 }

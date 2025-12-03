@@ -1,7 +1,7 @@
 'use client';
 
 import { BoardGamesService } from '@repo/api/services/board-games';
-import { TBoardGame } from 'api/board-games/entities/board-game.entity';
+import { TBoardGame } from 'api/board-games/entities/board-game.entity.js';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';

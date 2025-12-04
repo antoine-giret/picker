@@ -1,8 +1,8 @@
+import '../globals.css';
+
 import localFont from 'next/font/local';
 
-import '../globals.css';
 import { Providers } from '../providers';
-
 import Header from './header';
 
 const chewy = localFont({

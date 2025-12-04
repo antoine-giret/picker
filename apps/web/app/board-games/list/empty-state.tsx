@@ -19,9 +19,9 @@ export default function EmptyState({
         {text}
       </span>
       <Button
+        Icon={PlusIcon}
         Link={Link}
         href="/board-games/new"
-        Icon={PlusIcon}
         label={noGameYet ? 'Ajouter mon premier jeu' : 'Ajouter un nouveau jeu'}
         size={size}
         variant="contained"

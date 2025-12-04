@@ -12,7 +12,7 @@ export default function Search({
   return (
     <>
       <div>
-        <label htmlFor="search" className="sr-only">
+        <label className="sr-only" htmlFor="search">
           Search
         </label>
         <div className="flex items-center rounded-md pl-3 bg-black/5 dark:bg-white/5 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-purple-500">

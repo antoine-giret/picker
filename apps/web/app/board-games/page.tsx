@@ -8,10 +8,9 @@ import { useContext } from 'react';
 
 import { BoardGameEditorsContext } from '../context';
 import { useFetcher } from '../hooks/fetcher';
-
-import Loading from './loading';
 import List from './list';
 import EmptyState from './list/empty-state';
+import Loading from './loading';
 
 export default function BoardGames() {
   const boardGameEditorsContext = useContext(BoardGameEditorsContext);
@@ -30,9 +29,9 @@ export default function BoardGames() {
       <List boardGameEditors={boardGameEditors} boardGames={boardGames} />
       <div className="fixed bottom-6 right-6">
         <Button
+          Icon={PlusIcon}
           Link={Link}
           href="/board-games/new"
-          Icon={PlusIcon}
           label="Ajouter un jeu"
           variant="contained"
         />

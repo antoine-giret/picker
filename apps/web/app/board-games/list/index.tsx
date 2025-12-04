@@ -2,10 +2,10 @@
 
 import { TBoardGame } from 'api/board-games/entities/board-game.entity.js';
 import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity.js';
-
-import Wrapper from './wrapper';
-import Filters from './filters';
 import { useState } from 'react';
+
+import Filters from './filters';
+import Wrapper from './wrapper';
 
 export default function List({
   boardGameEditors,

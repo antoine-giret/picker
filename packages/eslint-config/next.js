@@ -1,13 +1,10 @@
-import js from "@eslint/js";
 import pluginNext from "@next/eslint-plugin-next";
 import { globalIgnores } from "eslint/config";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
-import tseslint from "typescript-eslint";
 
 import { config as baseConfig } from "./base.js";
-import { prettierConfig } from './prettier.js';
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
@@ -16,9 +13,6 @@ import { prettierConfig } from './prettier.js';
  * */
 export const nextJsConfig = [
   ...baseConfig,
-  js.configs.recommended,
-  ...prettierConfig,
-  ...tseslint.configs.recommended,
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
@@ -53,6 +47,7 @@ export const nextJsConfig = [
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
       "react/react-in-jsx-scope": "off",
+      "react/jsx-sort-props": "error",
     },
   },
 ];

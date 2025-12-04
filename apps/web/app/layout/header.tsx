@@ -16,8 +16,8 @@ export default function Header() {
         <div className="lg:hidden">
           <Menu>
             <MenuButton
-              type="button"
               className="inline-flex items-center justify-center rounded-md p-2.5 -m-2.5 outline-0 text-gray-700 dark:text-gray-100 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer"
+              type="button"
             >
               <span className="sr-only">Ouvrir le menu principal</span>
               <Bars3Icon className="size-6" />
@@ -26,12 +26,12 @@ export default function Header() {
               anchor="bottom end"
               className="w-xs max-w-9/10 flex-auto overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10 p-2"
             >
-              <MenuItem href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
+              <MenuItem Icon={PuzzlePieceIcon} href="/board-games" label="Jeux de société" />
             </MenuItems>
           </Menu>
         </div>
         <div className="hidden lg:flex">
-          <Button Link={Link} href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
+          <Button Icon={PuzzlePieceIcon} Link={Link} href="/board-games" label="Jeux de société" />
         </div>
       </nav>
     </header>
@@ -50,8 +50,8 @@ function MenuItem({
   return (
     <HeadlessUIMenuItem>
       <Link
-        href={href}
         className="flex items-center gap-2 rounded-md px-4 py-2 text-sm/7 font-semibold text-gray-700 dark:text-white hover:bg-black/5 dark:hover:bg-white/5"
+        href={href}
       >
         <Icon className="size-4" />
         {label}

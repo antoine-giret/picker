@@ -11,9 +11,9 @@ export default function NotFound() {
           <span className="text-md text-center">Page non trouvée</span>
         </div>
         <Button
+          Icon={HomeIcon}
           Link={Link}
           href="/"
-          Icon={HomeIcon}
           label="Revenir à l'accueil"
           variant="contained"
         />

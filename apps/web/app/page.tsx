@@ -54,19 +54,19 @@ export default function Home() {
     <div className="flex flex-col grow-1 items-center justify-center gap-6 py-6">
       <h1 className="text-md font-bold text-center">Que souhaites-tu sortir du placard ?</h1>
       <Card
+        Icon={PuzzlePieceIcon}
         color={colors.purple}
         hoverColor={hoverColors.purple}
         href="/board-games"
-        Icon={PuzzlePieceIcon}
         label="Jeux de société"
       />
       <Card
-        soon
+        Icon={MusicalNoteIcon}
         color={colors.fuchsia}
         hoverColor={hoverColors.fuchsia}
         href="#"
-        Icon={MusicalNoteIcon}
         label="Vinyles"
+        soon
       />
     </div>
   );

@@ -13,7 +13,7 @@ export default function Header() {
             <span className="font-(family-name:--chewy) text-xl">Quoi sortir ?</span>
           </Link>
         </div>
-        <div className="flex lg:hidden">
+        <div className="lg:hidden">
           <Menu>
             <MenuButton
               type="button"
@@ -30,7 +30,7 @@ export default function Header() {
             </MenuItems>
           </Menu>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex">
           <Button Link={Link} href="/board-games" Icon={PuzzlePieceIcon} label="Jeux de société" />
         </div>
       </nav>

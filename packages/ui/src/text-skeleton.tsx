@@ -1,14 +1,15 @@
-type TSize = 'xs' | 'sm' | 'md';
+type TSize = 'xs' | 'sm' | 'md' | 'lg';
 
 const heights: { [key in TSize]: [string, string] } = {
   xs: ['h-4', 'h-2'],
   sm: ['h-5', 'h-2.5'],
   md: ['h-6', 'h-3'],
+  lg: ['h-7', 'h-3.5'],
 };
 
-type TWidth = '80%' | '90%';
+type TWidth = '80%' | '90%' | '100%';
 
-const widths: { [key in TWidth]: string } = { '80%': 'w-8/10', '90%': 'w-9/10' };
+const widths: { [key in TWidth]: string } = { '80%': 'w-8/10', '90%': 'w-9/10', '100%': 'w-full' };
 
 export function TextSkeleton({ size, width }: { size: TSize; width: TWidth }) {
   const [boxHeight, spanHeight] = heights[size];

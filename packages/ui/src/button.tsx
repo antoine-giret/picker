@@ -18,7 +18,7 @@ export function Button({
   ...props
 }: {
   Icon: typeof PuzzlePieceIcon;
-  label: string;
+  label: React.ReactNode;
   size?: 'small';
   variant?: TVariant;
 } & (
@@ -32,7 +32,7 @@ export function Button({
     }
   | { onClick: () => void }
 )) {
-  const className = `flex items-center gap-2 rounded-md ${size === 'small' ? 'px-2 py-1' : 'px-4 py-2'} text-sm/7 font-semibold ${variants[variant || 'text']}`;
+  const className = `flex items-center gap-2 rounded-md ${size === 'small' ? 'px-4 py-1' : 'px-4 py-2'} text-sm/7 font-semibold ${variants[variant || 'text']}`;
 
   if ('Link' in props) {
     const { Link, href } = props;

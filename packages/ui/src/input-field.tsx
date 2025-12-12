@@ -1,5 +1,8 @@
+import { HTMLInputAutoCompleteAttribute } from 'react';
+
 export function InputField({
   id,
+  autoComplete,
   required,
   disabled,
   label,
@@ -9,6 +12,7 @@ export function InputField({
   secondaryAction,
   onChange,
 }: {
+  autoComplete?: HTMLInputAutoCompleteAttribute;
   disabled?: boolean;
   hideLabel?: boolean;
   id: string;
@@ -35,11 +39,14 @@ export function InputField({
           className={`w-full block px-3 py-2 text-heading text-sm ${disabled ? 'text-black/50 dark:text-white/50' : ''} placeholder:text-body focus:outline-none`}
           disabled={disabled}
           id={id}
+          onChange={({ target: { value: newValue } }) => onChange(newValue)}
           placeholder={placeholder}
           required={required}
-          onChange={({ target: { value: newValue } }) => onChange(newValue)}
           type="text"
           value={value}
+          {...(autoComplete === 'off'
+            ? { autoComplete: 'off', 'data-lpignore': 'true', 'data-form-type': 'other' }
+            : { autoComplete })}
         />
         {secondaryAction}
       </div>

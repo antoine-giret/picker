@@ -1,6 +1,7 @@
 'use client';
 
 import { HomeIcon } from '@heroicons/react/24/outline';
+import { Autocomplete, TAutocompleteValue } from '@repo/ui/autocomplete';
 import { Breadcrumb, TBreadcrumbItem } from '@repo/ui/breadcrumb';
 import { Button } from '@repo/ui/button';
 import { ButtonGroup } from '@repo/ui/button-group';
@@ -10,9 +11,12 @@ import {
   boardGameMechanisms,
   TBoardGameMechanism,
 } from 'api/board-games/entities/board-game.entity.js';
+import { TBoardGameEditor } from 'api/board-games/entities/board-game-editor.entity.js';
+import debounce from 'lodash.debounce';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 
+import { BoardGameEditorsContext } from '../../context';
 import { durations, durationsMap, mechanismsMap, TDuration } from '../types';
 
 const minNumberOfPlayersOptions = new Array(10).fill(null).map((_, index) => {
@@ -40,6 +44,12 @@ const minAgeOptions = new Array(18).fill(null).map((_, index) => {
   };
 });
 
+const noEditorOption: TAutocompleteValue = {
+  key: 'noResult',
+  label: 'Aucun éditeur trouvé',
+  disabled: true,
+};
+
 export default function NewBoardGame() {
   const items = useMemo<TBreadcrumbItem[]>(
     () => [
@@ -50,12 +60,48 @@ export default function NewBoardGame() {
     [],
   );
   const [name, setName] = useState('');
+  const [editor, setEditor] = useState<TAutocompleteValue | null>(null);
+  const [editorsOptions, setEditorsOptions] = useState<TAutocompleteValue[]>();
   const [minNumberOfPlayers, setMinNumberOfPlayers] = useState(2);
   const [maxNumberOfPlayers, setMaxNumberOfPlayers] = useState<TMaxNumberOfPlayers>('');
   const [durationInMinutes, setDurationInMinutes] = useState<TDuration>('30Min');
   const [minAge, setMinAge] = useState(7);
   const [mechanisms, setMechanisms] = useState<TBoardGameMechanism[]>([]);
   const [isSubmitting, setSubmitting] = useState(false);
+  const { list: boardGamesEditors } = useContext(BoardGameEditorsContext);
+
+  function filterEditors(boardGamesEditors: TBoardGameEditor[] | undefined, search: string) {
+    if (!boardGamesEditors || !search) {
+      setEditorsOptions([]);
+      return;
+    }
+
+    const options = boardGamesEditors
+      .filter(({ name }) =>
+        name
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(
+            search
+              .trim()
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, ''),
+          ),
+      )
+      .slice(0, 5)
+      .map<TAutocompleteValue>(({ id: key, name: label }) => ({ key, label, hasAvatar: true }));
+
+    if (options.length === 0) options.push(noEditorOption);
+
+    setEditorsOptions(options);
+  }
+
+  const onEditorSearchChange = useMemo(
+    () => debounce((search: string) => filterEditors(boardGamesEditors, search), 300),
+    [boardGamesEditors],
+  );
 
   function handleSubmit() {
     setSubmitting(true);
@@ -92,6 +138,27 @@ export default function NewBoardGame() {
             required
             value={name}
           />
+          <div className="flex flex-col gap-2">
+            <Autocomplete
+              disabled={isSubmitting}
+              filteredOptions={editorsOptions}
+              id="editor"
+              label="Éditeur"
+              onChange={setEditor}
+              placeholder="Recherchez un éditeur..."
+              setSearch={(search) => {
+                setEditorsOptions(undefined);
+                onEditorSearchChange(search);
+              }}
+              value={editor}
+            />
+            <div className="flex items-center gap-2 pl-2">
+              <span className="text-sm">Vous ne trouvez pas l&apos;éditeur du jeu ?</span>
+              <button className="text-sm text-purple-500 cursor-pointer" type="button">
+                Clique ici pour l&apos;ajouter
+              </button>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Select<number>
               disabled={isSubmitting}

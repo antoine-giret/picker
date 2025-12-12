@@ -13,16 +13,14 @@ import EmptyState from './list/empty-state';
 import Loading from './loading';
 
 export default function BoardGames() {
-  const boardGameEditorsContext = useContext(BoardGameEditorsContext);
+  const { list: boardGameEditors } = useContext(BoardGameEditorsContext);
   const { data: boardGames, error, isLoading } = useFetcher<TBoardGame[]>('/board-games');
 
   if (!boardGames || error || isLoading) return <Loading />;
 
-  if (!boardGameEditorsContext || boardGames.length === 0) {
+  if (!boardGameEditors || boardGames.length === 0) {
     return <EmptyState noGameYet text="Ton placard est pour le moment vide..." />;
   }
-
-  const { list: boardGameEditors } = boardGameEditorsContext;
 
   return (
     <>
